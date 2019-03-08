@@ -2,8 +2,11 @@ require 'rails_helper'
 
 describe MoviesController, :type => :controller do
    it 'should call model method' do
-       expect(Movie).to receive(:similar_movies).with('1')
-       get :find_similar_movies, {id: '1'}
+       #expect(Movie).to receive(:similar_movies).with('1')
+       #get :find_similar_movies, {id: '1'}
+       new_movie = Movie.create(title: 'Test 1')
+       expect(Movie).to receive(:similar_movies).with(new_movie.id)
+       get :find_similar_movies, {id: new_movie.id}
     end
 
     it 'should assign a value if director exists' do
